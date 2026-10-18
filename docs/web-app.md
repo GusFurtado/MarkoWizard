@@ -13,7 +13,7 @@ docker run -p 8000:8000 ghcr.io/outliersanalytics/markowizard:latest
 ## From a clone
 
 ```bash
-git clone https://github.com/OutliersAnalytics/MarkoWizard
+git clone https://github.com/GusFurtado/MarkoWizard
 cd MarkoWizard
 uv run --with-requirements backend/requirements.txt uvicorn backend.main:app --port 8000
 ```

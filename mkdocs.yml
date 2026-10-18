@@ -1,8 +1,8 @@
 site_name: MarkoWizard
 site_description: A modern Python library for Markowitz portfolio optimization and analysis.
-site_url: https://outliersanalytics.github.io/MarkoWizard/
-repo_url: https://github.com/OutliersAnalytics/MarkoWizard
-repo_name: OutliersAnalytics/MarkoWizard
+site_url: https://www.gustavofurtado.com/MarkoWizard/
+repo_url: https://github.com/GusFurtado/MarkoWizard
+repo_name: GusFurtado/MarkoWizard
 edit_uri: edit/main/docs/
 
 theme:

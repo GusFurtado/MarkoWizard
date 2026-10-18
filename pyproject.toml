@@ -48,10 +48,10 @@ docs = [
 ]
 
 [project.urls]
-Homepage = "https://github.com/OutliersAnalytics/MarkoWizard"
-Repository = "https://github.com/OutliersAnalytics/MarkoWizard"
-Documentation = "https://outliersanalytics.github.io/MarkoWizard/"
-Issues = "https://github.com/OutliersAnalytics/MarkoWizard/issues"
+Homepage = "https://github.com/GusFurtado/MarkoWizard"
+Repository = "https://github.com/GusFurtado/MarkoWizard"
+Documentation = "https://www.gustavofurtado.com/MarkoWizard/"
+Issues = "https://github.com/GusFurtado/MarkoWizard/issues"
 
 [tool.setuptools.packages.find]
 include = ["markowizard*"]
