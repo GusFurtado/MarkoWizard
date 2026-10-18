@@ -11,7 +11,7 @@
 !!! note "Previously known as _Diversificador_"
     The original portfolio-analysis web app built with [Dash](https://dash.plotly.com/)
     is no longer maintained, but it is preserved on the
-    [`dash-deprecated`](https://github.com/OutliersAnalytics/MarkoWizard/tree/dash-deprecated)
+    [`dash-deprecated`](https://github.com/GusFurtado/MarkoWizard/tree/dash-deprecated)
     branch for reference.
 
 ## Features

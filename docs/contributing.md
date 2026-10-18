@@ -7,7 +7,7 @@ Thanks for your interest in MarkoWizard.
 The project uses [uv](https://docs.astral.sh/uv/).
 
 ```bash
-git clone https://github.com/OutliersAnalytics/MarkoWizard
+git clone https://github.com/GusFurtado/MarkoWizard
 cd MarkoWizard
 uv sync
 ```

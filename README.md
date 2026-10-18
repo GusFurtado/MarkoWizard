@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="https://raw.githubusercontent.com/OutliersAnalytics/MarkoWizard/main/assets/banner.png" alt="MarkoWizard" width="640">
+  <img src="https://raw.githubusercontent.com/GusFurtado/MarkoWizard/main/assets/banner.png" alt="MarkoWizard" width="640">
 </p>
 
 <p align="center">
@@ -13,7 +13,7 @@
 </p>
 
 <p align="center">
-  📖 <b><a href="https://outliersanalytics.github.io/MarkoWizard/">Full documentation</a></b>
+  📖 <b><a href="https://www.gustavofurtado.com/MarkoWizard/">Full documentation</a></b>
 </p>
 
 > **Previously known as _Diversificador_.** The original portfolio-analysis web app
@@ -85,7 +85,7 @@ docker run -p 8000:8000 ghcr.io/outliersanalytics/markowizard:latest
 ### From a clone
 
 ```bash
-git clone https://github.com/OutliersAnalytics/MarkoWizard
+git clone https://github.com/GusFurtado/MarkoWizard
 cd MarkoWizard
 uv run --with-requirements backend/requirements.txt uvicorn backend.main:app --port 8000
 ```
@@ -94,7 +94,7 @@ Open [http://localhost:8000](http://localhost:8000) — the app auto-submits wit
 default tickers on load.
 
 It exposes a single endpoint, `POST /api/analyze`; see the
-[Web Application docs](https://outliersanalytics.github.io/MarkoWizard/web-app/)
+[Web Application docs](https://www.gustavofurtado.com/MarkoWizard/web-app/)
 for the request/response shape.
 
 ## API Reference
@@ -102,7 +102,7 @@ for the request/response shape.
 Full reference for every public class and function — `MarkowitzOptimizer`,
 `CapitalAllocator`, the `visualization` chart functions, and the `data`
 fetch helpers — lives in the
-**[documentation site](https://outliersanalytics.github.io/MarkoWizard/reference/core/)**.
+**[documentation site](https://www.gustavofurtado.com/MarkoWizard/reference/core/)**.
 
 ## Development
 

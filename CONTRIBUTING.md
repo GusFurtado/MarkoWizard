@@ -7,7 +7,7 @@ Thanks for your interest in MarkoWizard.
 The project uses [uv](https://docs.astral.sh/uv/).
 
 ```bash
-git clone https://github.com/OutliersAnalytics/MarkoWizard
+git clone https://github.com/GusFurtado/MarkoWizard
 cd MarkoWizard
 uv sync
 ```
@@ -36,7 +36,7 @@ uv run --with-requirements backend/requirements.txt uvicorn backend.main:app --p
 
 ## Building the docs
 
-The docs site (https://outliersanalytics.github.io/MarkoWizard/) is built with
+The docs site (https://www.gustavofurtado.com/MarkoWizard/) is built with
 [MkDocs Material](https://squidfunk.github.io/mkdocs-material/) and
 [mkdocstrings](https://mkdocstrings.github.io/) from `docs/` + docstrings in
 `markowizard/`. Preview locally with:
