@@ -5,10 +5,11 @@ repo_url: https://github.com/GusFurtado/MarkoWizard
 repo_name: GusFurtado/MarkoWizard
 edit_uri: edit/main/docs/
 
+extra_css:
+  - assets/extra.css
+
 theme:
   name: material
-  logo: assets/banner.svg
-  favicon: assets/banner.png
   palette:
     - media: "(prefers-color-scheme: light)"
       scheme: default

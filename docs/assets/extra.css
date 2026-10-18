@@ -1,0 +1,8 @@
+/* Header background: the MarkoWizard card from gustavofurtado.com. */
+.md-header {
+  background: #001d63 url("https://www.gustavofurtado.com/assets/img/projects/markowizard.svg") center / cover no-repeat;
+}
+
+.md-header[data-md-state="shadow"] {
+  box-shadow: 0 0 0.2rem rgba(0, 0, 0, 0.4), 0 0.2rem 0.4rem rgba(0, 0, 0, 0.5);
+}

@@ -1,12 +1,13 @@
 <p align="center">
-  <img src="assets/banner.png" alt="MarkoWizard" width="640">
+  <img src="https://www.gustavofurtado.com/assets/img/projects/markowizard.png" alt="MarkoWizard" width="640">
 </p>
 
 **A modern Python library for Markowitz portfolio optimization and analysis.**
 
 [![PyPI](https://img.shields.io/pypi/v/markowizard)](https://pypi.org/project/markowizard/)
-[![Python 3.10+](https://img.shields.io/badge/python-3.10+-blue.svg)](https://www.python.org/downloads/)
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![Python versions](https://img.shields.io/pypi/pyversions/markowizard)](https://pypi.org/project/markowizard/)
+[![Downloads](https://static.pepy.tech/badge/markowizard/month)](https://pepy.tech/projects/markowizard)
+[![License](https://img.shields.io/pypi/l/markowizard)](https://github.com/GusFurtado/MarkoWizard/blob/main/LICENSE)
 
 !!! note "Previously known as _Diversificador_"
     The original portfolio-analysis web app built with [Dash](https://dash.plotly.com/)
