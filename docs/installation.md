@@ -9,7 +9,7 @@ pip install markowizard
 That's everything the library needs: optimization (`scipy`), market-data
 fetching (`yfinance`), and visualization (`plotly`). No optional extras.
 
-Requires Python 3.10+.
+Requires Python 3.11.5+.
 
 ## Web application
 
