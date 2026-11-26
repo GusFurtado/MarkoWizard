@@ -22,3 +22,32 @@
 [data-md-color-scheme="slate"] {
   --md-typeset-a-color: #c99be0;
 }
+
+/* Home page screenshots: one wide on top, two side by side below (stacked on phones). */
+.shots {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.8rem;
+  margin: 1.5em 0;
+}
+
+.shots img {
+  display: block;
+  width: 100%;
+  border-radius: 0.4rem;
+  box-shadow: var(--md-shadow-z1);
+}
+
+.shots a {
+  display: block;
+}
+
+.shots .wide {
+  grid-column: 1 / -1;
+}
+
+@media (max-width: 600px) {
+  .shots {
+    grid-template-columns: 1fr;
+  }
+}
