@@ -5,23 +5,35 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>MarkoWizard — Analytical Workstation</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600&display=swap" rel="stylesheet" />
+    <link rel="icon" type="image/png" sizes="32x32" href="assets/favicon-32.png" />
+    <link rel="apple-touch-icon" href="assets/icon-180.png" />
+    <meta name="theme-color" content="#f9f9f7" />
     <link rel="stylesheet" href="style.css" />
+    <script src="theme.js"></script>
 </head>
 
 <body>
     <header class="mw-header">
         <a href="#top" class="mw-header__brand">
-            <img src="assets/images/outliers-mark.png" alt="Outliers Analytics" />
-            <span class="mw-header__divider"></span>
-            <img src="assets/markowizard-wordmark-light.svg" alt="MarkoWizard" />
+            <img src="assets/icon-180.png" alt="" />
+            <!-- "MarkoWizard" in Montserrat Bold, outlined (same paths as
+                 assets/markowizard-wordmark-light.svg); "Wizard" takes the brand color. -->
+            <svg class="mw-wordmark" viewBox="70 -20 6740 830" role="img" aria-label="MarkoWizard"><g transform="translate(0,787) scale(1,-1)"><g class="marko"><path transform="translate(0 0)" d="M83 0V700H217L515 206H444L737 700H870L872 0H720L719 467H747L513 74H440L201 467H235V0Z"></path>
+<path transform="translate(935 0)" d="M402 0V105L392 128V316Q392 366 362 394Q331 422 268 422Q225 422 184 408Q142 395 113 372L57 481Q101 512 163 529Q225 546 289 546Q412 546 480 488Q548 430 548 307V0ZM238 -8Q175 -8 130 14Q85 35 61 72Q37 109 37 155Q37 203 61 239Q84 275 135 295Q186 316 268 316H411V225H285Q230 225 210 207Q189 189 189 162Q189 132 213 115Q236 97 277 97Q316 97 347 115Q378 134 392 170L416 98Q399 46 354 19Q309 -8 238 -8Z"></path>
+<path transform="translate(1532 0)" d="M72 0V538H221V386L200 430Q224 487 277 516Q330 546 406 546V402Q396 403 388 404Q380 404 371 404Q307 404 267 368Q228 331 228 254V0Z"></path>
+<path transform="translate(1943 0)" d="M201 110 205 300 456 538H642L401 293L320 227ZM72 0V742H228V0ZM473 0 291 226 389 347 662 0Z"></path>
+<path transform="translate(2578 0)" d="M328 -8Q242 -8 176 28Q109 64 71 126Q32 189 32 269Q32 350 71 413Q109 475 176 510Q242 546 328 546Q413 546 480 510Q547 475 585 413Q623 351 623 269Q623 189 585 126Q547 64 480 28Q413 -8 328 -8ZM328 120Q367 120 398 138Q429 156 447 189Q465 223 465 269Q465 316 447 349Q429 382 398 400Q367 418 328 418Q289 418 258 400Q227 382 209 349Q190 316 190 269Q190 223 209 189Q227 156 258 138Q289 120 328 120Z"></path></g><g class="wizard"><path transform="translate(3213 0)" d="M251 0 22 700H190L389 80H305L513 700H663L863 80H782L986 700H1141L912 0H738L561 544H607L425 0Z"></path>
+<path transform="translate(4356 0)" d="M72 0V538H228V0ZM150 613Q107 613 80 638Q53 663 53 700Q53 737 80 762Q107 787 150 787Q194 787 221 763Q248 740 248 703Q248 664 221 638Q194 613 150 613Z"></path>
+<path transform="translate(4637 0)" d="M35 0V94L353 470L380 418H42V538H506V444L188 68L160 120H515V0Z"></path>
+<path transform="translate(5160 0)" d="M402 0V105L392 128V316Q392 366 362 394Q331 422 268 422Q225 422 184 408Q142 395 113 372L57 481Q101 512 163 529Q225 546 289 546Q412 546 480 488Q548 430 548 307V0ZM238 -8Q175 -8 130 14Q85 35 61 72Q37 109 37 155Q37 203 61 239Q84 275 135 295Q186 316 268 316H411V225H285Q230 225 210 207Q189 189 189 162Q189 132 213 115Q236 97 277 97Q316 97 347 115Q378 134 392 170L416 98Q399 46 354 19Q309 -8 238 -8Z"></path>
+<path transform="translate(5757 0)" d="M72 0V538H221V386L200 430Q224 487 277 516Q330 546 406 546V402Q396 403 388 404Q380 404 371 404Q307 404 267 368Q228 331 228 254V0Z"></path>
+<path transform="translate(6168 0)" d="M303 -8Q227 -8 166 27Q105 61 70 123Q34 185 34 269Q34 354 70 416Q105 478 166 512Q227 546 303 546Q371 546 422 516Q473 486 501 425Q529 364 529 269Q529 175 502 113Q475 52 424 22Q374 -8 303 -8ZM330 120Q368 120 399 138Q430 156 448 189Q467 223 467 269Q467 316 448 349Q430 382 399 400Q368 418 330 418Q291 418 260 400Q229 382 211 349Q192 316 192 269Q192 223 211 189Q229 156 260 138Q291 120 330 120ZM471 0V110L474 270L464 429V742H620V0Z"></path></g></g></svg>
         </a>
         <span class="tag tag-neutral" id="mw-header-universe">AAPL · MSFT · SPY · BND · GLD</span>
         <span class="tag tag-outline" id="mw-header-period">5Y monthly</span>
         <span class="text-muted" style="font-size: 12px" id="mw-header-status">Not run yet</span>
         <button type="button" class="btn btn-secondary" id="mw-units-btn">Monthly</button>
+        <button type="button" class="btn btn-secondary mw-theme-btn" id="mw-theme-btn" title="Theme" aria-label="Theme" aria-haspopup="dialog" aria-expanded="false"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="13.5" cy="6.5" r="1.2"/><circle cx="17.5" cy="10.5" r="1.2"/><circle cx="8.5" cy="7.5" r="1.2"/><circle cx="6.5" cy="12.5" r="1.2"/><path d="M12 2a10 10 0 0 0 0 20 1.7 1.7 0 0 0 1.7-1.7c0-.4-.2-.8-.4-1.1-.3-.3-.4-.7-.4-1.1a1.7 1.7 0 0 1 1.7-1.7h2A5.6 5.6 0 0 0 22 10.8C22 5.9 17.5 2 12 2z"/></svg></button>
     </header>
 
     <div class="mw-shell">
@@ -72,14 +84,12 @@
             <div id="mw-assets-slot"></div>
             <div id="mw-saved-slot"></div>
             <p class="text-muted mw-disclaimer">Expected returns and covariances are estimated from historical
-                monthly closes and are not forecasts. Long-only, fully invested, no transaction costs or taxes.
-                MarkoWizard · Outliers Analytics.</p>
+                monthly closes and are not forecasts. Long-only, fully invested, no transaction costs or taxes.</p>
         </main>
     </div>
 
     <div id="mw-overlay" class="mw-overlay" hidden>
         <div class="card elev-lg mw-overlay__card">
-            <img src="assets/images/mascote-markowitz.png" alt="" />
             <div class="mw-spinner"></div>
             <div class="mw-overlay__title">Solving 60 quadratic programs</div>
             <div class="text-muted mw-overlay__note" id="mw-overlay-note"></div>

@@ -51,13 +51,9 @@ const MAX_TICKERS = 15; // soft cap — nothing in the math requires this, but
 // statistics table.
 //
 // This is a deliberate departure from the handoff's own chart palette
-// (teal/navy shades pulled from outliers-design-system's chart.seriesA/B/C
-// tokens — all one hue family, varying mostly in lightness). That's a real
-// accessibility problem, not just this app's: the design system doesn't
-// actually define an extended qualitative palette beyond those 3 series
-// colors + a neutral "other", and being brand-derived, any more of them
-// would still be teal/navy variants — exactly what's hard to tell apart
-// under color vision deficiency, which distinguishes hue far less
+// (shades of the brand color — all one hue family, varying mostly in
+// lightness). Brand-derived series colors are exactly what's hard to tell
+// apart under color vision deficiency, which distinguishes hue far less
 // reliably than lightness/saturation.
 //
 // The first 8 colors are Okabe & Ito's colorblind-safe qualitative
@@ -86,6 +82,29 @@ const CHART_PALETTE = [
   "#66C2A5", // teal-green
   "#999999", // light gray
 ];
+
+// The same hues lifted for dark mode, where the darkest of them (blue, bluish
+// green, vermillion, dark gray, brown) would sink into the background: same
+// order, so a ticker keeps its hue when the mode changes.
+const CHART_PALETTE_DARK = [
+  "#3d9be0", // blue
+  "#e69f00", // orange
+  "#1fbf8f", // bluish green
+  "#f27a3a", // vermillion
+  "#d98cb8", // reddish purple
+  "#8fd1f5", // sky blue
+  "#e0c040", // goldenrod
+  "#b8b8b8", // light gray (was dark gray)
+  "#c98257", // brown
+  "#f79fcf", // pink
+  "#7fd8bb", // teal-green
+  "#808080", // gray
+];
+
+function chartColor(k) {
+  const palette = document.documentElement.dataset.mode === "dark" ? CHART_PALETTE_DARK : CHART_PALETTE;
+  return palette[k % palette.length];
+}
 
 const PERIOD_WORDS = {
   "1y": "1-year",
@@ -397,7 +416,6 @@ function errorCardHtml() {
 function getStartedCardHtml() {
   return `
     <div class="card elev-sm mw-placeholder">
-      <img src="assets/images/mascote-markowitz.png" alt="" style="width:56px;height:56px;object-fit:contain" />
       <span class="card-kicker">Get started</span>
       <p class="card-body">Search for at least two tickers in the rail, then run the analysis to see the report.</p>
     </div>`;
@@ -502,7 +520,7 @@ function frontierSectionHtml(result) {
       if (!a) return null; // shouldn't happen — every requested ticker gets stats back
       return {
         t,
-        color: CHART_PALETTE[k % CHART_PALETTE.length],
+        color: chartColor(k),
         pctX: ((geo.X(a.volatility) / 880) * 100).toFixed(2),
         pctY: ((geo.Y(a.expected_return) / 470) * 100).toFixed(2),
       };
@@ -701,7 +719,7 @@ function allocationRowsHtml(result) {
     return {
       ticker: t,
       name: nameFor(t),
-      color: CHART_PALETTE[k % CHART_PALETTE.length],
+      color: chartColor(k),
       w,
       capPct: w * (1 - cashP) * 100,
     };
@@ -734,7 +752,7 @@ function allocationArcsHtml(result) {
   const cashP = state.cash / 100;
   let acc = 0;
   return result.tickers
-    .map((t, k) => ({ w: p.weights[t] ?? 0, color: CHART_PALETTE[k % CHART_PALETTE.length] }))
+    .map((t, k) => ({ w: p.weights[t] ?? 0, color: chartColor(k) }))
     .filter((r) => r.w > 0.0005)
     .map((r) => {
       const len = r.w * (1 - cashP) * DONUT_CIRCUMFERENCE;
@@ -840,16 +858,20 @@ function renderAllocation() {
 
 /* ── Correlation matrix ──────────────────────────────────────────────── */
 
-// Linear RGB interpolation from neutral-900 (0.0) to accent-600 (1.0). Text
-// stays ink-dark at every value — the ramp tops out light enough that a
-// contrast threshold (needed in the mobile design this superseded) isn't
-// needed here.
-const CORR_LOW_RGB = [241, 245, 249];
-const CORR_HIGH_RGB = [94, 213, 217];
+// Linear RGB interpolation from neutral-900 (0.0) to accent-600 (1.0), read
+// from the theme at render time. Text stays --color-text at every value: in
+// light mode the ramp tops out light enough for dark ink, and in dark mode
+// (where both ramps are reversed) dark enough for light ink.
+function cssColorRgb(name) {
+  const hex = getComputedStyle(document.documentElement).getPropertyValue(name).trim().replace("#", "");
+  return [0, 2, 4].map((i) => parseInt(hex.slice(i, i + 2), 16));
+}
 
 function correlationCellColor(v) {
   const t = Math.max(0, Math.min(1, v));
-  const rgb = CORR_LOW_RGB.map((u, k) => Math.round(u + (CORR_HIGH_RGB[k] - u) * t));
+  const low = cssColorRgb("--color-neutral-900");
+  const high = cssColorRgb("--color-accent-600");
+  const rgb = low.map((u, k) => Math.round(u + (high[k] - u) * t));
   return `rgb(${rgb.join(",")})`;
 }
 
@@ -867,7 +889,7 @@ function correlationSectionHtml(result) {
       const cells = tickers
         .map((_, j) => {
           const v = corr[i][j];
-          return `<span style="aspect-ratio:1/1;border-radius:var(--radius-sm);display:flex;align-items:center;justify-content:center;font-size:11.5px;font-variant-numeric:tabular-nums;background:${correlationCellColor(v)};color:#0d1321">${v.toFixed(2)}</span>`;
+          return `<span style="aspect-ratio:1/1;border-radius:var(--radius-sm);display:flex;align-items:center;justify-content:center;font-size:11.5px;font-variant-numeric:tabular-nums;background:${correlationCellColor(v)};color:var(--color-text)">${v.toFixed(2)}</span>`;
         })
         .join("");
       return label + cells;
@@ -945,7 +967,7 @@ function assetStatsSectionHtml(result) {
       const wColor = w > 0.005 ? "var(--color-text)" : "var(--color-neutral-600)";
       return `
         <div class="mw-grid-row mw-grid-row--body" style="grid-template-columns:${cols}">
-          <span class="mw-swatch"><span class="mw-swatch__dot" style="background:${CHART_PALETTE[k % CHART_PALETTE.length]}"></span>${escapeHtml(t)}</span>
+          <span class="mw-swatch"><span class="mw-swatch__dot" style="background:${chartColor(k)}"></span>${escapeHtml(t)}</span>
           <span class="text-muted" style="font-size:13px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${escapeHtml(nameFor(t))}</span>
           <span class="mw-num" style="text-align:right">${pct(toReturn(a.expected_return))}</span>
           <span class="mw-num" style="text-align:right">${pct(toVol(a.volatility))}</span>
@@ -1077,7 +1099,6 @@ function savedRunsSectionHtml() {
       <section id="saved">
         ${header}
         <div class="card elev-sm mw-placeholder">
-          <img src="assets/images/mascote-dinheiro.png" alt="" style="width:48px;height:48px;object-fit:contain" />
           <p class="card-body">No saved runs yet — run an analysis, then save it to come back to it later.</p>
         </div>
       </section>`;
@@ -1230,6 +1251,11 @@ function init() {
     state.rfIdx = idxForMonthlyRf(monthly);
     render();
   });
+
+  const themeBtn = document.getElementById("mw-theme-btn");
+  themeBtn.addEventListener("click", () => THEME.picker(themeBtn));
+  // Charts and the heatmap take their colors at render time.
+  document.addEventListener("themechange", render);
 
   document.getElementById("mw-units-btn").addEventListener("click", () => {
     state.units = isAnnual() ? null : "annual";

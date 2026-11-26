@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="https://www.gustavofurtado.com/assets/img/projects/markowizard.png" alt="MarkoWizard" width="640">
+  <img src="assets/readme-banner.webp" alt="MarkoWizard" width="100%">
 </p>
 
 **A modern Python library for Markowitz portfolio optimization and analysis.**

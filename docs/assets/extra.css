@@ -1,8 +1,24 @@
-/* Header background: the MarkoWizard card from gustavofurtado.com. */
-.md-header {
-  background: #001d63 url("https://www.gustavofurtado.com/assets/img/projects/markowizard.svg") center / cover no-repeat;
+/* The Wizard palette, the same four colors as the app icon: royal violet
+   #6A2B8F, highlight #A14DC6, shadow #1A1126, moon #F5D98B. */
+:root {
+  --md-primary-fg-color: #6a2b8f;
+  --md-primary-fg-color--light: #a14dc6;
+  --md-primary-fg-color--dark: #4a1d66;
+}
+
+.md-header,
+.md-tabs {
+  background: linear-gradient(100deg, #1a1126 0%, #4a1d66 55%, #6a2b8f 100%);
 }
 
 .md-header[data-md-state="shadow"] {
   box-shadow: 0 0 0.2rem rgba(0, 0, 0, 0.4), 0 0.2rem 0.4rem rgba(0, 0, 0, 0.5);
+}
+
+.md-header__button.md-logo img {
+  border-radius: 15%;
+}
+
+[data-md-color-scheme="slate"] {
+  --md-typeset-a-color: #c99be0;
 }

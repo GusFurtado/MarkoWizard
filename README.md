@@ -1,6 +1,4 @@
-<p align="center">
-  <a href="https://www.gustavofurtado.com/MarkoWizard/"><img src="https://www.gustavofurtado.com/assets/img/projects/markowizard.png" alt="MarkoWizard" width="640"></a>
-</p>
+<h1 align="center"><a href="https://www.gustavofurtado.com/MarkoWizard/"><img src="https://www.gustavofurtado.com/MarkoWizard/assets/readme-banner.webp" alt="MarkoWizard" width="100%"></a></h1>
 
 <p align="center">
   <b>A modern Python library for Markowitz portfolio optimization and analysis.</b>
