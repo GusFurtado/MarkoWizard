@@ -4,6 +4,10 @@ An interactive web UI (FastAPI + a single-page frontend) lives in `backend/` and
 `frontend/`. It is **not part of the PyPI package** — run it from the container
 image or a clone.
 
+The pages come in six color themes (Violet Wizard by default), each light and dark,
+picked from the palette button at the top right and kept in the browser. By default
+the mode follows the system.
+
 ## Using Docker
 
 ```bash
