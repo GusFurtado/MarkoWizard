@@ -46,7 +46,7 @@ nav:
       - allocation: reference/allocation.md
       - visualization: reference/visualization.md
       - data: reference/data.md
-  - Contributing: contributing.md
+  - About: about.md
 
 plugins:
   - search
