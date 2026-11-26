@@ -174,15 +174,27 @@ function setText(id, text) {
   const el = document.getElementById(id);
   if (el) el.textContent = text;
 }
-/** "Nice" tick step for an axis running 0..max: the largest of 1/2/2.5/5 x
- * 10^n that still gives at least 4 ticks. Same rule the design handoff's
- * prototype uses, so frontier tick counts match the reference screenshots. */
-function niceTickValues(max) {
-  const raw = max / 4;
+/** "Nice" ticks for an axis running min..max (min is 0 unless returns go
+ * negative): the largest step of 1/2/2.5/5 x 10^n that still gives at least
+ * 4 ticks, on multiples of the step so 0 is always one of them. Same rule
+ * the design handoff's prototype uses, so frontier tick counts match the
+ * reference screenshots. */
+function niceTickValues(max, min = 0) {
+  const raw = (max - min) / 4;
   const mag = Math.pow(10, Math.floor(Math.log10(raw)));
-  const step = [1, 2, 2.5, 5, 10].map((m) => m * mag).find((s) => s >= raw) || mag * 10;
-  const out = [];
-  for (let v = 0; v <= max + 1e-9; v += step) out.push(v);
+  let step = [1, 2, 2.5, 5, 10].map((m) => m * mag).find((s) => s >= raw) || mag * 10;
+  const ticks = () => {
+    const out = [];
+    for (let k = Math.ceil(min / step - 1e-9); k * step <= max + 1e-9; k++) out.push(k * step || 0);
+    return out;
+  };
+  // An axis that crosses zero can land on only two multiples of the step:
+  // halve it until there are at least three ticks to read.
+  let out = ticks();
+  while (out.length < 3) {
+    step /= 2;
+    out = ticks();
+  }
   return out;
 }
 
@@ -443,12 +455,18 @@ function computeFrontierGeometry(result) {
   const pts = result.efficient_frontier;
   const assetStats = result.asset_statistics || [];
   const xMax = Math.max(...pts.map((q) => q.risk), ...assetStats.map((a) => a.volatility)) * 1.08;
-  const yMax =
-    Math.max(...pts.map((q) => q.expected_return), ...assetStats.map((a) => a.expected_return)) * 1.12;
+  // The return axis starts at 0, or below it when an asset (or the frontier)
+  // has a negative expected return, so every dot stays inside the plot.
+  const returns = [...pts.map((q) => q.expected_return), ...assetStats.map((a) => a.expected_return)];
+  const top = Math.max(...returns, 0);
+  const bottom = Math.min(...returns, 0);
+  const span = top - bottom || 1e-3;
+  const yMax = top + 0.12 * span;
+  const yMin = bottom < 0 ? bottom - 0.08 * span : 0;
   const X = (v) => FR_X0 + (v / xMax) * FR_X_SPAN;
-  const Y = (v) => FR_Y0 - (v / yMax) * FR_Y_SPAN;
+  const Y = (v) => FR_Y0 - ((v - yMin) / (yMax - yMin)) * FR_Y_SPAN;
   const geo = pts.map((q) => ({ cx: +X(q.risk).toFixed(1), cy: +Y(q.expected_return).toFixed(1) }));
-  return { pts, assetStats, xMax, yMax, X, Y, geo };
+  return { pts, assetStats, xMax, yMax, yMin, X, Y, geo };
 }
 
 /** Maps a pointer event's x position to the nearest frontier point by risk,
@@ -479,7 +497,7 @@ function frontierSectionHtml(result) {
   const rf = rfOf(state.appliedRfIdx);
   const { best } = resolveSelection(result);
 
-  const gridPath = niceTickValues(geo.yMax).map((v) => `M${FR_X0} ${geo.Y(v).toFixed(1)}H862`).join(" ");
+  const gridPath = niceTickValues(geo.yMax, geo.yMin).map((v) => `M${FR_X0} ${geo.Y(v).toFixed(1)}H862`).join(" ");
   const xTickPath = niceTickValues(geo.xMax).map((v) => `M${geo.X(v).toFixed(1)} ${FR_Y0}v7`).join(" ");
   const dotsPath = geo.geo
     .map((g) => `M${(g.cx - 2.2).toFixed(1)} ${g.cy}a2.2 2.2 0 1 0 4.4 0a2.2 2.2 0 1 0 -4.4 0`)
@@ -495,6 +513,9 @@ function frontierSectionHtml(result) {
   if (calY > geo.yMax) {
     calY = geo.yMax;
     calX = (geo.yMax - rf) / slope;
+  } else if (calY < geo.yMin) {
+    calY = geo.yMin;
+    calX = (geo.yMin - rf) / slope;
   }
   const cal = {
     x1: geo.X(0).toFixed(1), y1: geo.Y(rf).toFixed(1),
@@ -504,7 +525,7 @@ function frontierSectionHtml(result) {
   };
 
   const unitWord = isAnnual() ? "annualized" : "monthly";
-  const yTicks = niceTickValues(geo.yMax).map((v) => ({
+  const yTicks = niceTickValues(geo.yMax, geo.yMin).map((v) => ({
     pctY: ((geo.Y(v) / 470) * 100).toFixed(2),
     label: pct(toReturn(v), isAnnual() ? 0 : 1),
   }));
@@ -542,6 +563,7 @@ function frontierSectionHtml(result) {
               <path d="${gridPath}" fill="none" stroke="var(--color-neutral-900)" stroke-width="1"></path>
               <path d="${xTickPath}" fill="none" stroke="var(--color-neutral-600)" stroke-width="1"></path>
               <line x1="${FR_X0}" y1="${FR_Y0}" x2="862" y2="${FR_Y0}" stroke="var(--color-neutral-500)" stroke-width="1"></line>
+              ${geo.yMin < 0 ? `<line x1="${FR_X0}" y1="${geo.Y(0).toFixed(1)}" x2="862" y2="${geo.Y(0).toFixed(1)}" stroke="var(--color-neutral-500)" stroke-width="1"></line>` : ""}
               <line x1="${cal.x1}" y1="${cal.y1}" x2="${cal.x2}" y2="${cal.y2}" stroke="var(--color-accent-300)" stroke-width="1.4" stroke-dasharray="6 5"></line>
               <polyline points="${line}" fill="none" stroke="var(--color-accent-400)" stroke-width="2.6" stroke-linejoin="round"></polyline>
               <path d="${dotsPath}" fill="var(--color-accent-300)" opacity="0.55"></path>
