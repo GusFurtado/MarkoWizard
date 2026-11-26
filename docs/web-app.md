@@ -1,13 +1,13 @@
 # Web Application
 
-An interactive web UI (FastAPI + a dark-themed frontend) lives in `backend/` and
+An interactive web UI (FastAPI + a single-page frontend) lives in `backend/` and
 `frontend/`. It is **not part of the PyPI package** — run it from the container
 image or a clone.
 
 ## Using Docker
 
 ```bash
-docker run -p 8000:8000 ghcr.io/outliersanalytics/markowizard:latest
+docker run -p 8000:8000 ghcr.io/gusfurtado/markowizard:latest
 ```
 
 ## From a clone
