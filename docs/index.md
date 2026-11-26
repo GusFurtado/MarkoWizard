@@ -21,13 +21,13 @@
 - **Capital Allocation Line** — Mix risky portfolios with risk-free assets
 - **Visualization** — Plotly-based charts for efficient frontier, allocation pie, CAL, correlation heatmaps, and price timelines
 - **Data Fetching** — Built-in helpers for downloading market data via yfinance
-- **Web Application** — FastAPI backend with a dark-themed interactive frontend
+- **Web Application** — FastAPI backend with an interactive frontend in six color themes, each light and dark
 
 ## Where to go next
 
 - [Installation](installation.md) — install the library or run the web app
 - [Quick Start](quickstart.md) — optimize a portfolio in a few lines of Python
-- [Web Application](web-app.md) — run the interactive dark-themed UI locally or via Docker
+- [Web Application](web-app.md) — run the interactive UI locally or via Docker
 - [API Reference](reference/core.md) — full reference for every public function and class
 - [Contributing](contributing.md) — set up a dev environment and submit changes
 
